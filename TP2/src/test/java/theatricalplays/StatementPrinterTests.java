@@ -39,7 +39,7 @@ public class StatementPrinterTests {
                 new Performance("as-like", 55)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        Assertions.assertThrows(Error.class, () -> {
             statementPrinter.print(invoice, plays);
         });
     }

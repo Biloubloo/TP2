@@ -17,7 +17,7 @@ public class Play {
 
     private void validateType(String type) {
         if (!TRAGEDY.equals(type) && !COMEDY.equals(type) && !HISTORY.equals(type) && !PASTORAL.equals(type)) {
-            throw new IllegalArgumentException("Invalid play type: " + type);
+            throw new Error("Invalid play type: " + type);
         }
     }
 }
