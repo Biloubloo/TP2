@@ -6,11 +6,11 @@ public abstract class Play {
     public static final String HISTORY = "history";
     public static final String PASTORAL = "pastoral";
 
-    public String name;
-    public String type;
+    public String name; // Le nom de la pièce
+    public String type; // Le type de la pièce
 
     public Play(String name, String type) {
-        validateType(type); // Vérifiez le type de pièce lors de la création de l'objet
+        validateType(type); // Vérifie le type de pièce lors de la création de l'objet
         this.name = name;
         this.type = type;
     }

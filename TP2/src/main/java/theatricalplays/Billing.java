@@ -3,14 +3,14 @@ package theatricalplays;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringJoiner;
 
 public class Billing {
-    private Invoice invoice;
-    private Map<String, Play> plays;
-    private NumberFormat frmt;
-    private double totalAmount;
-    private int volumeCredits;
+    // Attributs pour stocker les données
+    private Invoice invoice; // La facture à traiter
+    private Map<String, Play> plays; // Les pièces de théâtre associées par ID
+    private NumberFormat frmt; // Formatage des montants en monnaie
+    private double totalAmount; // Montant total de la facture
+    private int volumeCredits; // Crédits de volume gagnés
 
     public Billing(Invoice invoice, Map<String, Play> plays) {
         this.invoice = invoice;
@@ -20,12 +20,14 @@ public class Billing {
         volumeCredits = 0;
     }
 
+    // Génère un relevé de facturation au format texte brut
     public String toText() {
         StringBuilder result = new StringBuilder();
 
         // En-tête du relevé de facturation
         result.append("Statement for ").append(invoice.customer).append("\n");
 
+        // Parcours des performances dans la facture
         for (Performance perf : invoice.performances) {
             Play play = plays.get(perf.playID);
             double thisAmount = calculateAmount(play, perf);
@@ -48,16 +50,18 @@ public class Billing {
         return result.toString();
     }
 
+    // Génère un relevé de facturation au format HTML
     public String toHTML() {
         StringBuilder html = new StringBuilder();
         html.append("<html><head><title>Invoice</title></head><body>");
-        html.append("<h1>Invoice for ").append(invoice.customer).append("</h1>");
-        html.append("<ul>");
+        html.append("<h1>Invoice for ").append(invoice.customer).append("</h1><ul>");
 
+        // Parcours des performances dans la facture
         for (Performance perf : invoice.performances) {
             Play play = plays.get(perf.playID);
             double thisAmount = calculateAmount(play, perf);
 
+            // Ajout d'une ligne pour cette performance dans HTML
             html.append("<li>").append(play.name).append(": ").append(frmt.format(thisAmount)).append(" (").append(perf.audience).append(" seats)</li>");
         }
 
@@ -69,6 +73,7 @@ public class Billing {
         return html.toString();
     }
 
+    // Calcule le montant pour une performance en fonction du type de pièce
     private double calculateAmount(Play play, Performance perf) {
         double thisAmount = 0.0;
         if (Play.TRAGEDY.equals(play.type)) {
