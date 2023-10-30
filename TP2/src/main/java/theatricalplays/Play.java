@@ -1,6 +1,6 @@
 package theatricalplays;
 
-public class Play {
+public abstract class Play {
     public static final String TRAGEDY = "tragedy";
     public static final String COMEDY = "comedy";
     public static final String HISTORY = "history";
